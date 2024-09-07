@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import ShowScreenDetail from '../components/ShowScreenDetail';

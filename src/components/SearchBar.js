@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react';
 import {View, TextInput, StyleSheet} from 'react-native';
 import {Feather} from '@expo/vector-icons';
@@ -41,5 +42,6 @@ const styles = StyleSheet.create({
         marginHorizontal:15
     }
 });
+
 
 export default SearchBar;

@@ -1,68 +1,61 @@
-import React, {useState, useEffect} from 'react';
-import {Text, View, StyleSheet, FlatList, Image} from 'react-native';
-import yelp from '../api/yelp';
+
+import React, { useState, useEffect } from 'react';
+import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import ShowScreenDetail from '../components/ShowScreenDetail';
-import { Ionicons } from '@expo/vector-icons';
+import RedirectLink from '../components/RedirectLink';
 
-const ResultsShowScreen = ({ navigation }) => {
-    const [result,setResult] = useState( null );
-    const id = navigation.getParam('id');
-
-    const getResult = async (id) => {
-       const response = await yelp.get(`/${id}`);
-        setResult(response.data);
-    }; 
-
-    useEffect(() => {
-        getResult(id);
-    }, []);
-
-    if(!result) {
-        return null;
-    } else {
-        return(
+const ResultsShowScreen = ({ route, navigation }) => {
+    const [result, setResult] = useState(null);
+    const [error, setError] = useState(null); 
+    const { recipe } = route.params; 
+    
+        return (
             <View>
-                <Text style={styles.textStyle}>{result.name}</Text>
-                <FlatList
-                    horizontal
-                    showsHorizontalScrollIndicator = {false}
-                    data={result.photos}
-                    keyExtractor={ (photo) => photo}
-                    renderItem={ ( { item } ) => {
-                        return (<ShowScreenDetail result={item}/>);
-                    } }
-                />
-                <View style={styles.container}>
-                    <Text style={{fontSize:15, fontWeight:"bold"}}>{result.rating} Stars, {result.review_count} Reviews</Text>
-                    <View style={styles.contact}>
-                        <Ionicons name="md-call" size={28} color="black" style={styles.iconStyle} />
-                        <Text style={{fontSize:15, fontWeight:"bold"}}> : {result.phone}</Text>
-                    </View>
-                    <Text style={{fontSize:15, fontWeight:"bold"}}>Location : {result.location.city}, {result.location.state}, {result.location.country}</Text>
-                    <Text style={{fontSize:15, fontWeight:"bold"}}>Address : {result.location.display_address}</Text>
-                </View>
+                <ShowScreenDetail result={recipe.image} />
+                
+                <Text style={styles.textStyle}>{recipe.label}</Text>
+                <ScrollView style={styles.container}>
+                    <RedirectLink url={recipe.url} title="View Recipe"/>
+                    <Text style={{fontSize:16,fontWeight:"500"}}>Ingredients : </Text>
+                    {recipe.ingredientLines.map((ingredient,index) => {
+                        return (<View key={index.toString()}>
+                            <Text style={styles.ingredient}> • {ingredient}</Text>
+                        </View>)
+                    })}
+
+                </ScrollView>
             </View>
         );
-    };
 };
 
 const styles = StyleSheet.create({
-    textStyle : {
-        textAlign:'center',
-        fontSize:25,
-        marginVertical:10,
-        fontWeight:"bold"
+    textStyle: {
+        textAlign: 'center',
+        fontSize: 25,
+        marginVertical: 10,
+        fontWeight: 'bold'
     },
-    contact : {
-        flexDirection:"row"
+    contact: {
+        flexDirection: 'row',
     },
-    iconStyle:{
-        alignSelf:"center"
+    iconStyle: {
+        alignSelf: 'center',
     },
     container: {
-        marginLeft:10,
-        marginTop:20,
-    }
+        marginLeft: 10,
+        marginTop: 20,
+    },
+    errorContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 20,
+    },
+    errorText: {
+        fontSize: 18,
+        color: 'red',
+        fontWeight: 'bold',
+    },
 });
 
 export default ResultsShowScreen;

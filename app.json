@@ -1,0 +1,35 @@
+{
+  "expo": {
+    "name": "app",
+    "slug": "hell",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash/splash.png",
+      "resizeMode":"auto",
+      "backgroundColor": "#000000"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": ["./node_modules/@expo-google-fonts/plus-jakarta-sans/PlusJakartaSans_400Regular.ttf"]
+        }
+      ]
+    ]
+  }
+}

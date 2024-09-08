@@ -1,3 +1,4 @@
+
 import React from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 
@@ -11,10 +12,10 @@ const ShowScreenDetil = ({result}) => {
 
 const styles = StyleSheet.create({
     imageStyle : {
-        width:250,
-        height:200,
-        borderRadius:10,
-        marginLeft:10
+        width:"100%",
+        aspectRatio:"4/3",
+        objectFit:"cover",
+        margin:"auto"
     }
 });
 

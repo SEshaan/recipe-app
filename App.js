@@ -1,19 +1,25 @@
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import SearchScreen from './src/screens/SearchScreen';
-import ResultsShowScreen from './src/screens/ResultsShowScreen'
+import ResultsShowScreen from './src/screens/ResultsShowScreen';
 
-const navigator = createStackNavigator(
-  {
-  Search:SearchScreen,
-  ResultsShow:ResultsShowScreen
-  },
-  {
-    initialRouteName: "Search",
-    defaultNavigationOptions:{
-      title:"FOOD SEARCH",
-      headerTitleAlign: "center"
-    }
-});
+const Stack = createStackNavigator();
 
-export default createAppContainer(navigator); 
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="Search"
+        screenOptions={{
+          headerTitleAlign: 'center',
+          title: 'Recipe Finder',
+        }}
+      >
+        <Stack.Screen name="Search" component={SearchScreen} />
+        <Stack.Screen name="ResultsShow" component={ResultsShowScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
